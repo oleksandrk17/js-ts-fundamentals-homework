@@ -127,7 +127,8 @@ addTask("Fifth"); // Add Task
 console.log(tasks); // just check.
 showTasks(tasks); // Show Tasks
 markCompleted(1); // Mark Completed
-removeTask(999); // Remove Task
+removeTask(2); // Remove Task
+removeTask(999); // Remove Task that doesn't exist. 
 findTask("learn"); // Find Task
 countTasks(); // Count Tasks
 countCompletedTasks(); // Count Completed Tasks
