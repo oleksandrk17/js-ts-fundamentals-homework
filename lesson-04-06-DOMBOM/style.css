@@ -1,0 +1,8 @@
+#game { 
+    display: flex; 
+    gap: 40px; }
+#field { 
+    position: relative; 
+    border: 2px solid black; }
+.ship { 
+    position: absolute; }
