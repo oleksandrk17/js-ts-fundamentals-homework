@@ -2,6 +2,8 @@ const FIELD_WIDTH = 8;
 const FIELD_HEIGHT = 11;
 const CELL_SIZE = 40;
 const POINTS_PER_SHIP = 100;
+const ALIEN_ROWS = 3;
+const aliens = [];
 
 const field = document.querySelector("#field");
 
@@ -46,8 +48,15 @@ function createAlien (column, row) {
     alienShip.style.top = `${row * CELL_SIZE}px`;
     alienShip.style.left = `${column * CELL_SIZE}px`;
     alienShip.style.backgroundColor = 'green';
+    alienShip.style.border = '1px solid white';
     field.append(alienShip);
     return alienShip;
 }
 
-createAlien(0, 0);
+for (let column = 0; column < FIELD_WIDTH; column++) {
+    for (let row = 0; row < ALIEN_ROWS; row++) {
+        aliens.push(createAlien(column, row));
+    }
+}
+
+
