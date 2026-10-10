@@ -24,11 +24,11 @@ let playerColumn = 3;
 playerShip.style.left = `${playerColumn * CELL_SIZE}px`;
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowLeft") {
+  if (event.key === "ArrowLeft" && playerColumn > 0) {
     playerColumn -= 1;
     updatePlayerPosition();
   }
-  if (event.key === 'ArrowRight') {
+  if (event.key === 'ArrowRight' && playerColumn < (FIELD_WIDTH - 1)) {
     playerColumn += 1;
     updatePlayerPosition();
   }
@@ -37,3 +37,17 @@ document.addEventListener("keydown", (event) => {
 function updatePlayerPosition() {
   playerShip.style.left = `${playerColumn * CELL_SIZE}px`;
 }
+
+function createAlien (column, row) {
+    const alienShip = document.createElement('div');
+    alienShip.classList.add('ship');
+    alienShip.style.width = `${CELL_SIZE}px`;
+    alienShip.style.height = `${CELL_SIZE}px`;
+    alienShip.style.top = `${row * CELL_SIZE}px`;
+    alienShip.style.left = `${column * CELL_SIZE}px`;
+    alienShip.style.backgroundColor = 'green';
+    field.append(alienShip);
+    return alienShip;
+}
+
+createAlien(0, 0);
