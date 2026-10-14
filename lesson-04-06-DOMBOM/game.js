@@ -53,7 +53,10 @@ function fire() {
                 target = alien;
             }
         }
-    } console.log(target);
+    } if (target !== null ) {
+        target.remove();
+        aliens.splice(aliens.indexOf(target), 1);
+        }
 }
 
 function createAlien (column, row) {
