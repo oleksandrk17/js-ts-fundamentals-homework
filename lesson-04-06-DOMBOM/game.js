@@ -36,12 +36,16 @@ document.addEventListener("keydown", (event) => {
     updatePlayerPosition();
   }
   if (event.code === 'Space') {
-    console.log('fire');
+    fire();
   }
 });
 
 function updatePlayerPosition() {
   playerShip.style.left = `${playerColumn * CELL_SIZE}px`;
+}
+
+function fire() {
+    console.log('fire');
 }
 
 function createAlien (column, row) {
@@ -85,4 +89,6 @@ startBtn.addEventListener('click', () => {
     speedDisplay.textContent = speed;
     gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / speed);
 });
+
+
 
