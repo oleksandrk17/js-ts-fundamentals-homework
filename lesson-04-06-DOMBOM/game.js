@@ -59,9 +59,9 @@ function showBeam(topY) {
 }
 
 function fire() {
-    if (!isGameRunning) {
-  return;
-}
+  if (!isGameRunning) {
+    return;
+  }
   let target = null;
   for (const alien of aliens) {
     if (parseInt(alien.style.left) / CELL_SIZE === playerColumn) {
