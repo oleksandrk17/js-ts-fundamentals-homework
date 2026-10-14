@@ -59,10 +59,12 @@ for (let column = 0; column < FIELD_WIDTH; column++) {
     }
 }
 
+let gameTimer = setInterval(moveAliensDown, 1000);
 function moveAliensDown() {
     for(const enemy of aliens) {
         enemy.style.top = `${parseInt(enemy.style.top) + CELL_SIZE}px`;
+        if (parseInt(enemy.style.top) >= parseInt(playerShip.style.top) - CELL_SIZE) { 
+            clearInterval(gameTimer);
+        }
     }
 }
-
-moveAliensDown();
