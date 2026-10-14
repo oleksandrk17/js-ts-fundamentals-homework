@@ -56,6 +56,8 @@ function fire() {
     } if (target !== null ) {
         target.remove();
         aliens.splice(aliens.indexOf(target), 1);
+        score += POINTS_PER_SHIP;
+        scoreDisplay.textContent = score;
         }
 }
 
