@@ -44,11 +44,16 @@ function updatePlayerPosition() {
   playerShip.style.left = `${playerColumn * CELL_SIZE}px`;
 }
 
+
 function fire() {
+    let target = null;
     for(const alien of aliens) {
-        if ((parseInt(alien.style.left) / CELL_SIZE) === playerColumn)
-            console.log(alien);
-    }
+        if ((parseInt(alien.style.left) / CELL_SIZE) === playerColumn) {
+            if (target === null || parseInt(alien.style.top) > parseInt(target.style.top)) {
+                target = alien;
+            }
+        }
+    } console.log(target);
 }
 
 function createAlien (column, row) {
