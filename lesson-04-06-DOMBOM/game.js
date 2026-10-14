@@ -35,6 +35,9 @@ document.addEventListener("keydown", (event) => {
     playerColumn += 1;
     updatePlayerPosition();
   }
+  if (event.code === 'Space') {
+    console.log('fire');
+  }
 });
 
 function updatePlayerPosition() {
@@ -72,11 +75,11 @@ function moveAliensDown() {
     }
 }
 
-// startBtn.addEventListener('click', gameTimer);
-
 const startBtn = document.querySelector("#start-btn");
 const speedSelect = document.querySelector("#speed-select");
 const speedDisplay = document.querySelector("#speed-display");
+const scoreDisplay = document.querySelector("#score");
+let score = 0;
 startBtn.addEventListener('click', () => {
     const speed = Number(speedSelect.value);
     speedDisplay.textContent = speed;
