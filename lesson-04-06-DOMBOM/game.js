@@ -110,6 +110,7 @@ function createAlien(column, row) {
   alienShip.style.left = `${column * CELL_SIZE}px`;
   alienShip.style.backgroundColor = "green";
   alienShip.style.border = "1px solid white";
+  alienShip.style.boxSizing = "border-box";
   field.append(alienShip);
   return alienShip;
 }
@@ -158,6 +159,7 @@ startBtn.addEventListener("click", () => {
     }
     currentSpeed = speed;
     speedDisplay.textContent = speed;
+    clearInterval(gameTimer);
     gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / speed);
     startBtn.blur();
   } catch (error) {
