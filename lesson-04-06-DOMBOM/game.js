@@ -61,6 +61,9 @@ function fire() {
     aliens.splice(aliens.indexOf(target), 1);
     score += POINTS_PER_SHIP;
     scoreDisplay.textContent = score;
+    if (aliens.length === 0) {
+        createAlienGrid();
+    }
   }
 }
 
@@ -109,4 +112,5 @@ startBtn.addEventListener("click", () => {
   const speed = Number(speedSelect.value);
   speedDisplay.textContent = speed;
   gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / speed);
+  startBtn.blur();
 });
