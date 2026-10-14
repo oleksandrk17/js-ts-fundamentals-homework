@@ -124,6 +124,18 @@ function createAlienGrid() {
 }
 createAlienGrid();
 
+function resetGame() {
+  for (const alien of aliens) {
+    alien.remove();
+  }
+  aliens.length = 0;
+  score = 0;
+  scoreDisplay.textContent = score;
+  playerColumn = 3;
+  updatePlayerPosition();
+  createAlienGrid();
+}
+
 let gameTimer;
 
 function moveAliensDown() {
@@ -153,6 +165,7 @@ let score = 0;
 let currentSpeed = 1;
 startBtn.addEventListener("click", () => {
   try {
+    resetGame();
     const speed = Number(speedSelect.value);
     if (Number.isNaN(speed) || speed <= 0) {
       throw new Error("Invalid speed");
