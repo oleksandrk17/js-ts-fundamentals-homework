@@ -5,7 +5,7 @@ const POINTS_PER_SHIP = 100;
 const ALIEN_ROWS = 3;
 const aliens = [];
 const BASE_INTERVAL = 1000;
-const SPEED_UP_SCORE = 10000;
+const SPEED_UP_SCORE = 300;
 
 const field = document.querySelector("#field");
 
@@ -63,7 +63,10 @@ function fire() {
     score += POINTS_PER_SHIP;
     scoreDisplay.textContent = score;
     if (score % SPEED_UP_SCORE === 0) {
-        console.log('speed up');
+        currentSpeed += 1;
+        clearInterval(gameTimer);
+        gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / currentSpeed);
+        speedDisplay.textContent = currentSpeed;
     }
     if (aliens.length === 0) {
         createAlienGrid();
