@@ -6,6 +6,7 @@ const ALIEN_ROWS = 3;
 const aliens = [];
 const BASE_INTERVAL = 1000;
 const SPEED_UP_SCORE = 10000;
+const BEAM_WIDTH = 4;
 
 const field = document.querySelector("#field");
 
@@ -45,6 +46,18 @@ function updatePlayerPosition() {
   playerShip.style.left = `${playerColumn * CELL_SIZE}px`;
 }
 
+function showBeam(topY) {
+  const beam = document.createElement("div");
+  beam.classList.add("ship");
+  beam.style.width = `${BEAM_WIDTH}px`;
+  beam.style.backgroundColor = "yellow";
+  beam.style.left = `${playerColumn * CELL_SIZE + (CELL_SIZE - BEAM_WIDTH) / 2}px`;
+  beam.style.top = `${topY}px`;
+  beam.style.height = `${parseInt(playerShip.style.top) - topY}px`;
+  field.append(beam);
+  return beam;
+}
+
 function fire() {
   let target = null;
   for (const alien of aliens) {
@@ -57,6 +70,17 @@ function fire() {
       }
     }
   }
+
+  let beamTop = 0;
+  if (target !== null) {
+    beamTop = parseInt(target.style.top);
+  }
+
+  const beam = showBeam(beamTop);
+  setTimeout(() => {
+    beam.remove();
+  }, 150);
+
   if (target !== null) {
     target.remove();
     aliens.splice(aliens.indexOf(target), 1);
