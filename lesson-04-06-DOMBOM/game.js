@@ -59,6 +59,9 @@ function showBeam(topY) {
 }
 
 function fire() {
+    if (!isGameRunning) {
+  return;
+}
   let target = null;
   for (const alien of aliens) {
     if (parseInt(alien.style.left) / CELL_SIZE === playerColumn) {
@@ -94,6 +97,7 @@ function fire() {
     }
     if (aliens.length === 0) {
       clearInterval(gameTimer);
+      isGameRunning = false;
       setTimeout(() => {
         alert("YOU WON! Congratulations!");
       }, 100);
@@ -137,6 +141,7 @@ function resetGame() {
 }
 
 let gameTimer;
+let isGameRunning = false;
 
 function moveAliensDown() {
   for (const enemy of aliens) {
@@ -149,6 +154,7 @@ function moveAliensDown() {
       parseInt(playerShip.style.top) - CELL_SIZE
     ) {
       clearInterval(gameTimer);
+      isGameRunning = false;
       setTimeout(() => {
         alert("YOU LOSE! HA-HA-HA!");
       }, 100);
@@ -172,6 +178,7 @@ startBtn.addEventListener("click", () => {
     }
     currentSpeed = speed;
     speedDisplay.textContent = speed;
+    isGameRunning = true;
     clearInterval(gameTimer);
     gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / speed);
     startBtn.blur();
