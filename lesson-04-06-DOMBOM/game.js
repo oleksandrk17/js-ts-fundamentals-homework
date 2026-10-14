@@ -63,13 +63,16 @@ function fire() {
     score += POINTS_PER_SHIP;
     scoreDisplay.textContent = score;
     if (score % SPEED_UP_SCORE === 0) {
-        currentSpeed += 1;
-        clearInterval(gameTimer);
-        gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / currentSpeed);
-        speedDisplay.textContent = currentSpeed;
+      currentSpeed += 1;
+      clearInterval(gameTimer);
+      gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / currentSpeed);
+      speedDisplay.textContent = currentSpeed;
     }
     if (aliens.length === 0) {
-        createAlienGrid();
+      clearInterval(gameTimer);
+      setTimeout(() => {
+        alert("You win!");
+      }, 100);
     }
   }
 }
