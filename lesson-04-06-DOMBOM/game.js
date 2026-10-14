@@ -4,6 +4,7 @@ const CELL_SIZE = 40;
 const POINTS_PER_SHIP = 100;
 const ALIEN_ROWS = 3;
 const aliens = [];
+const BASE_INTERVAL = 1000;
 
 const field = document.querySelector("#field");
 
@@ -74,8 +75,11 @@ function moveAliensDown() {
 // startBtn.addEventListener('click', gameTimer);
 
 const startBtn = document.querySelector("#start-btn");
+const speedSelect = document.querySelector("#speed-select");
 startBtn.addEventListener('click', () => {
-    gameTimer = setInterval(moveAliensDown, 1000);
+    const speed = Number(speedSelect.value);
+    gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / speed);
 });
+
 
 
