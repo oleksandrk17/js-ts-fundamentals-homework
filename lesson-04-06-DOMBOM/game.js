@@ -71,7 +71,7 @@ function fire() {
     if (aliens.length === 0) {
       clearInterval(gameTimer);
       setTimeout(() => {
-        alert("You win!");
+        alert("YOU WON! Congratulations!");
       }, 100);
     }
   }
@@ -104,11 +104,18 @@ let gameTimer;
 function moveAliensDown() {
   for (const enemy of aliens) {
     enemy.style.top = `${parseInt(enemy.style.top) + CELL_SIZE}px`;
+  }
+
+  for (const enemy of aliens) {
     if (
       parseInt(enemy.style.top) >=
       parseInt(playerShip.style.top) - CELL_SIZE
     ) {
       clearInterval(gameTimer);
+      setTimeout(() => {
+        alert("YOU LOSE! HA-HA-HA!");
+      }, 100);
+      return;
     }
   }
 }
