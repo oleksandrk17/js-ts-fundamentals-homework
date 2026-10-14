@@ -59,4 +59,10 @@ for (let column = 0; column < FIELD_WIDTH; column++) {
     }
 }
 
+function moveAliensDown() {
+    for(const enemy of aliens) {
+        enemy.style.top = `${parseInt(enemy.style.top) + CELL_SIZE}px`;
+    }
+}
 
+moveAliensDown();
