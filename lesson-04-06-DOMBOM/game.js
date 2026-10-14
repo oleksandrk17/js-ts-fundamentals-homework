@@ -76,10 +76,10 @@ function moveAliensDown() {
 
 const startBtn = document.querySelector("#start-btn");
 const speedSelect = document.querySelector("#speed-select");
+const speedDisplay = document.querySelector("#speed-display");
 startBtn.addEventListener('click', () => {
     const speed = Number(speedSelect.value);
+    speedDisplay.textContent = speed;
     gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / speed);
 });
-
-
 
