@@ -59,7 +59,9 @@ for (let column = 0; column < FIELD_WIDTH; column++) {
     }
 }
 
-let gameTimer = setInterval(moveAliensDown, 1000);
+
+let gameTimer;
+
 function moveAliensDown() {
     for(const enemy of aliens) {
         enemy.style.top = `${parseInt(enemy.style.top) + CELL_SIZE}px`;
@@ -68,3 +70,12 @@ function moveAliensDown() {
         }
     }
 }
+
+// startBtn.addEventListener('click', gameTimer);
+
+const startBtn = document.querySelector("#start-btn");
+startBtn.addEventListener('click', () => {
+    gameTimer = setInterval(moveAliensDown, 1000);
+});
+
+
