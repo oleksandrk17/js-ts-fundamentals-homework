@@ -31,11 +31,11 @@ document.addEventListener("keydown", (event) => {
     playerColumn -= 1;
     updatePlayerPosition();
   }
-  if (event.key === 'ArrowRight' && playerColumn < (FIELD_WIDTH - 1)) {
+  if (event.key === "ArrowRight" && playerColumn < FIELD_WIDTH - 1) {
     playerColumn += 1;
     updatePlayerPosition();
   }
-  if (event.code === 'Space') {
+  if (event.code === "Space") {
     fire();
   }
 });
@@ -44,52 +44,60 @@ function updatePlayerPosition() {
   playerShip.style.left = `${playerColumn * CELL_SIZE}px`;
 }
 
-
 function fire() {
-    let target = null;
-    for(const alien of aliens) {
-        if ((parseInt(alien.style.left) / CELL_SIZE) === playerColumn) {
-            if (target === null || parseInt(alien.style.top) > parseInt(target.style.top)) {
-                target = alien;
-            }
-        }
-    } if (target !== null ) {
-        target.remove();
-        aliens.splice(aliens.indexOf(target), 1);
-        score += POINTS_PER_SHIP;
-        scoreDisplay.textContent = score;
-        }
-}
-
-function createAlien (column, row) {
-    const alienShip = document.createElement('div');
-    alienShip.classList.add('ship');
-    alienShip.style.width = `${CELL_SIZE}px`;
-    alienShip.style.height = `${CELL_SIZE}px`;
-    alienShip.style.top = `${row * CELL_SIZE}px`;
-    alienShip.style.left = `${column * CELL_SIZE}px`;
-    alienShip.style.backgroundColor = 'green';
-    alienShip.style.border = '1px solid white';
-    field.append(alienShip);
-    return alienShip;
-}
-
-for (let column = 0; column < FIELD_WIDTH; column++) {
-    for (let row = 0; row < ALIEN_ROWS; row++) {
-        aliens.push(createAlien(column, row));
+  let target = null;
+  for (const alien of aliens) {
+    if (parseInt(alien.style.left) / CELL_SIZE === playerColumn) {
+      if (
+        target === null ||
+        parseInt(alien.style.top) > parseInt(target.style.top)
+      ) {
+        target = alien;
+      }
     }
+  }
+  if (target !== null) {
+    target.remove();
+    aliens.splice(aliens.indexOf(target), 1);
+    score += POINTS_PER_SHIP;
+    scoreDisplay.textContent = score;
+  }
 }
 
+function createAlien(column, row) {
+  const alienShip = document.createElement("div");
+  alienShip.classList.add("ship");
+  alienShip.style.width = `${CELL_SIZE}px`;
+  alienShip.style.height = `${CELL_SIZE}px`;
+  alienShip.style.top = `${row * CELL_SIZE}px`;
+  alienShip.style.left = `${column * CELL_SIZE}px`;
+  alienShip.style.backgroundColor = "green";
+  alienShip.style.border = "1px solid white";
+  field.append(alienShip);
+  return alienShip;
+}
+
+function createAlienGrid() {
+  for (let column = 0; column < FIELD_WIDTH; column++) {
+    for (let row = 0; row < ALIEN_ROWS; row++) {
+      aliens.push(createAlien(column, row));
+    }
+  }
+}
+createAlienGrid();
 
 let gameTimer;
 
 function moveAliensDown() {
-    for(const enemy of aliens) {
-        enemy.style.top = `${parseInt(enemy.style.top) + CELL_SIZE}px`;
-        if (parseInt(enemy.style.top) >= parseInt(playerShip.style.top) - CELL_SIZE) { 
-            clearInterval(gameTimer);
-        }
+  for (const enemy of aliens) {
+    enemy.style.top = `${parseInt(enemy.style.top) + CELL_SIZE}px`;
+    if (
+      parseInt(enemy.style.top) >=
+      parseInt(playerShip.style.top) - CELL_SIZE
+    ) {
+      clearInterval(gameTimer);
     }
+  }
 }
 
 const startBtn = document.querySelector("#start-btn");
@@ -97,11 +105,8 @@ const speedSelect = document.querySelector("#speed-select");
 const speedDisplay = document.querySelector("#speed-display");
 const scoreDisplay = document.querySelector("#score");
 let score = 0;
-startBtn.addEventListener('click', () => {
-    const speed = Number(speedSelect.value);
-    speedDisplay.textContent = speed;
-    gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / speed);
+startBtn.addEventListener("click", () => {
+  const speed = Number(speedSelect.value);
+  speedDisplay.textContent = speed;
+  gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / speed);
 });
-
-
-
