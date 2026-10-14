@@ -1,6 +1,7 @@
 #game { 
     display: flex; 
-    gap: 40px; }
+    gap: 40px; 
+    justify-content: center; }
 #field { 
     position: relative; 
     border: 2px solid black; }
