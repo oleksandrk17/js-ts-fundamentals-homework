@@ -117,9 +117,16 @@ const scoreDisplay = document.querySelector("#score");
 let score = 0;
 let currentSpeed = 1;
 startBtn.addEventListener("click", () => {
-  const speed = Number(speedSelect.value);
-  currentSpeed = speed;
-  speedDisplay.textContent = speed;
-  gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / speed);
-  startBtn.blur();
+  try {
+    const speed = Number(speedSelect.value);
+    if (Number.isNaN(speed) || speed <= 0) {
+      throw new Error("Invalid speed");
+    }
+    currentSpeed = speed;
+    speedDisplay.textContent = speed;
+    gameTimer = setInterval(moveAliensDown, BASE_INTERVAL / speed);
+    startBtn.blur();
+  } catch (error) {
+    console.log(error.message);
+  }
 });
