@@ -45,7 +45,10 @@ function updatePlayerPosition() {
 }
 
 function fire() {
-    console.log('fire');
+    for(const alien of aliens) {
+        if ((parseInt(alien.style.left) / CELL_SIZE) === playerColumn)
+            console.log(alien);
+    }
 }
 
 function createAlien (column, row) {
