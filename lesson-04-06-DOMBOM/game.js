@@ -5,7 +5,7 @@ const POINTS_PER_SHIP = 100;
 const ALIEN_ROWS = 3;
 const aliens = [];
 const BASE_INTERVAL = 1000;
-const SPEED_UP_SCORE = 300;
+const SPEED_UP_SCORE = 10000;
 
 const field = document.querySelector("#field");
 
