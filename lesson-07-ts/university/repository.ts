@@ -9,6 +9,7 @@ export interface IRepository<T extends Identifiable> {
   findById(id: string): Promise<T | null>;
   findAll(): Promise<T[]>;
   delete(id: string): Promise<boolean>;
+  findWhere(predicate: (item: T) => boolean): Promise<T[]>;
 }
 
 /**
@@ -16,6 +17,9 @@ export interface IRepository<T extends Identifiable> {
  */
 export class InMemoryRepository<T extends Identifiable> implements IRepository<T> {
   private _items: Map<string, T> = new Map();
+  async findWhere(predicate: (item: T) => boolean): Promise<T[]> {
+  return Array.from(this._items.values()).filter(predicate);
+}
 
   async save(entity: T): Promise<void> {
     this._items.set(entity.id, entity);
