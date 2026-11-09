@@ -27,9 +27,9 @@ export class Faculty implements Identifiable {
     return newGroup;
   }
 
-  public deleteGroup(groupId: string): boolean {
-    return this._groups.delete(groupId);
-  }
+  public removeGroup(groupId: string): boolean {
+  return this._groups.delete(groupId);
+}
 
   public findGroupById(groupId: string): AcademicGroup | undefined {
     return this._groups.get(groupId);

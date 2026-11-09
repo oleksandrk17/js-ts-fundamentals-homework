@@ -1,4 +1,8 @@
+// report-generator.ts
 import { Student } from "./person-hierarchy";
+
+const escapeXml = (text: string): string =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 export abstract class ReportGenerator {
   // Шаблонний метод: порядок кроків фіксований
@@ -17,7 +21,7 @@ export class XmlReportGenerator extends ReportGenerator {
   }
   protected generateBody(students: readonly Student[]): string {
     return students
-      .map(s => `  <student gpa="${s.calculateGPA()}">${s.fullName}</student>`)
+      .map(s => `  <student gpa="${s.calculateGPA()}">${escapeXml(s.fullName)}</student>`)
       .join("\n");
   }
   protected generateFooter(): string {

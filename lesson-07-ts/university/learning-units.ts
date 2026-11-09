@@ -2,8 +2,10 @@
 import { Identifiable } from "./basic-contracts";
 import { Student, Teacher } from "./person-hierarchy";
 
+const PASSING_SCORE = 60;
+
 /**
- * Клас Course (Агрегує викладача)
+ * Клас Course (Агрегує викладача та попередні курси)
  */
 export class Course implements Identifiable {
   constructor(
@@ -11,7 +13,7 @@ export class Course implements Identifiable {
     public title: string,
     public credits: number,
     private _instructor: Teacher,
-    public readonly prerequisites: Course[] = []   // добавили эту строку
+    public readonly prerequisites: Course[] = []
   ) {}
 
   get instructor(): Teacher {
@@ -23,8 +25,11 @@ export class Course implements Identifiable {
     this._instructor = newInstructor;
   }
 
-  public canEnroll(student: Student): boolean {   // новый метод
-    const passed = student.getGrades().filter(g => g.score >= 60).map(g => g.courseId);
+  public canEnroll(student: Student): boolean {
+    const passed = student
+      .getGrades()
+      .filter(g => g.score >= PASSING_SCORE)
+      .map(g => g.courseId);
     return this.prerequisites.every(p => passed.includes(p.id));
   }
 }
@@ -33,13 +38,11 @@ export class Course implements Identifiable {
  * Клас AcademicGroup (Агрегує студентів та призначеного куратора)
  */
 export class AcademicGroup implements Identifiable {
-  // АГРЕГАЦІЯ: Масив посилань на студентів, які існують самостійно
   private _students: Map<string, Student> = new Map();
 
   constructor(
     public readonly id: string,
     public name: string,
-    // АГРЕГАЦІЯ: Викладач виступає куратором
     public curator?: Teacher
   ) {}
 
