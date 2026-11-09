@@ -1,8 +1,9 @@
 // main.ts
-import { Student, Professor, AssociateProfessor } from "./person-hierarchy";
+import { Student, Professor, AssociateProfessor, Staff } from "./person-hierarchy";
 import { Course } from "./learning-units";
 import { Faculty } from "./faculty";
 import { InMemoryRepository } from "./repository";
+import { XmlReportGenerator, JsonReportGenerator } from "./report-generator";
 
 async function runDemonstration() {
   console.log("=== 1. Створення викладачів (Поліморфізм та спадкування) ===");
@@ -46,6 +47,22 @@ async function runDemonstration() {
 
   const topStudents = await studentRepo.findWhere(s => s.calculateGPA() > 93);
   console.log(`Студенти з GPA > 93: ${topStudents.map(s => s.fullName).join(", ")}`);
+
+  console.log("\n=== 5. Передумови курсів ===");
+  const advancedCourse = new Course("c-adv", "Advanced TypeScript", 5, docentKoval, [tsCourse]);
+  const newbie = new Student("s-103", "Петро", "Сидоренко", "p.sydorenko@univ.edu", "KB123458");
+  console.log(`Іван може записатися: ${advancedCourse.canEnroll(studentIvan)}`);
+  console.log(`Петро може записатися: ${advancedCourse.canEnroll(newbie)}`);
+
+  console.log("\n=== 6. Звіти (шаблонний метод) ===");
+  const allStudents = await studentRepo.findAll();
+  console.log(new XmlReportGenerator().generate(allStudents));
+  console.log(new JsonReportGenerator().generate(allStudents));
+
+  console.log("\n=== 7. Staff ===");
+  const admin = new Staff("st-1", "Марія", "Ткаченко", "m.tkachenko@univ.edu", "Деканат");
+  console.log(admin.getRoleDescription());
+  console.log(admin.generateBadge());
 }
 
 runDemonstration().catch(console.error);

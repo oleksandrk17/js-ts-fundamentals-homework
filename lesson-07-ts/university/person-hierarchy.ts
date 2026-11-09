@@ -126,3 +126,24 @@ export class AssociateProfessor extends Teacher {
     return `Доцент кафедри (${this.fullName})`;
   }
 }
+
+// Adding new person 'Staff'. 
+export class Staff extends Person {
+  constructor(
+    id: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    public readonly department: string
+  ) {
+    super(id, firstName, lastName, email);
+  }
+
+  public generateBadge(): string {
+    return `ID-картка: ${this.fullName} | Відділ: ${this.department} | ${this.email}`;
+  }
+
+  override getRoleDescription(): string {
+    return `Адміністратор (${this.department})`;
+  }
+}

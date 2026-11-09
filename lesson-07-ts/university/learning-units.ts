@@ -10,8 +10,8 @@ export class Course implements Identifiable {
     public readonly id: string,
     public title: string,
     public credits: number,
-    // АГРЕГАЦІЯ: Курс знає про вчителя, але вчитель існує незалежно від курсу
-    private _instructor: Teacher
+    private _instructor: Teacher,
+    public readonly prerequisites: Course[] = []   // добавили эту строку
   ) {}
 
   get instructor(): Teacher {
@@ -21,6 +21,11 @@ export class Course implements Identifiable {
   public reassignInstructor(newInstructor: Teacher): void {
     console.log(`[Course Info] Зміна викладача курсу "${this.title}": ${newInstructor.fullName}`);
     this._instructor = newInstructor;
+  }
+
+  public canEnroll(student: Student): boolean {   // новый метод
+    const passed = student.getGrades().filter(g => g.score >= 60).map(g => g.courseId);
+    return this.prerequisites.every(p => passed.includes(p.id));
   }
 }
 
